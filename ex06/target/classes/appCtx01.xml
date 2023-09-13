@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd">
+<!-- 대상객체(핵심) 을 빈으로 등록 -->
+
+	<bean id="impeCalc" class="spring.calc.ImpCalculator"/>	
+	<bean id="recCalc" class="spring.calc.RecCalculator"/>
+
+<!-- 프록시객체(부가) 로 빈으로 등록 -->
+
+	<bean id="exeTimeAspect1" class="spring.aspect.ExeTimeAspect1"/>
+
+<!-- AOP 설정 -->
+<aop:config>
+	<aop:aspect id="measureAspect" ref="exeTimeAspect1">  <!-- 하나의 공통기능 -->
+	<!-- 1.공통 기능을 적용할 대상 -->
+	
+	
+	<aop:pointcut 
+		expression="execution(public * spring.calc..*(..))"
+			id="factorialMethod"/>
+	
+	<!-- 2.공통 기능을 적용할 시점-->
+	<aop:around method="measure"    pointcut-ref="factorialMethod" />
+	<!-- 전후         공통기능을 실행할 메서드 이름      대상이 핵심 메서드-->	
+	</aop:aspect>
+
+<!--
+ <aop:aspect></aop:aspect>  여러 공통 기능
+<aop:aspect></aop:aspect> 
+-->
+
+</aop:config>
+</beans>
