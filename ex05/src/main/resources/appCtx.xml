@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
+
+	<bean id="client" class="spring.bean.Client">
+		<property name="host" value="웹서버" />
+	</bean>
+
+	<bean id="client2" class="spring.bean.Client2" 
+	init-method="connect" destroy-method="close">
+	<!-- 초기화메서드         				  소멸 메서드 -->
+		<property name="host" value="웹서버2" />
+	</bean>
+	
+		<bean id="client3" class="spring.bean.Client" scope="prototype">
+											<!-- 빈의 사용범위가 프로토타입(매번 다른 객체를 사용) -->
+		<property name="host" value="웹서버3" />
+	</bean>
+
+</beans>
