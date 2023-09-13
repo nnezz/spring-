@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
+	
+	<!-- 자동 주입이 동작하려면 -->
+	
+	<context:annotation-config/>
+	
+	
+	<bean id="memberDao" class="spring.dao.MemberDao"/>
+	<bean id="memberRegSvc" class="spring.service.MemberRegisterService">
+		<!-- <constructor-arg ref="memberDao"></constructor-arg> 명시적 의존 주입 -->
+	</bean>
+	
+	<!-- <bean id="memberPrinter" class="spring.printer.MemberPrinter"/> -->
+	
+	<bean id="printer1" class="spring.printer.MemberPrinter">
+		<qualifier value="chk01"/>
+	</bean>	
+	<bean id="printer2" class="spring.printer.MemberPrinter">
+		<qualifier value="chk02"/>
+	</bean>	
+	
+	
+	<bean id="infoPrinter" class="spring.printer.MemberInfoPrinter">
+		<!-- <property name="memDao" ref="memberDao"></property> 
+		<property name="printer" ref="memberPrinter"></property>-->
+	</bean>	
+	
+</beans>
