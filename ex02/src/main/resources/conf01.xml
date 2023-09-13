@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+	
+	<import resource="classpath:conf02.xml"/>
+	
+	
+	<bean id="dao" class="spring.dao.MemberDao"/>
+	
+	<bean id="memberRegSvc" class="spring.service.MemberRegisterService">
+		<!-- new spring.service.MemberRegisterService(dao) -->
+		
+		<constructor-arg ref="dao"/><!-- 생성자를 통한 의존 주입 -->
+	</bean>
+	
+	
+	<bean id="changePwdSvc" class="spring.service.ChangePasswordService">
+		<property name="dao" ref="dao"/> <!-- setter 매서드를 통한 의존 주입 -->
+		<!-- setField() => field; -->
+		<!-- setDao() => dao; -->
+	</bean>
+</beans>

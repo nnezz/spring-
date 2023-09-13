@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+
+<bean id="memberPrinter" class="spring.printer.MemberPrinter"/>
+<bean id="listPrinter" class="spring.printer.MemberListPrinter"> <!-- 생성자 두개이상 -->
+	<constructor-arg ref="dao"/>	
+	<constructor-arg ref="memberPrinter"/>
+</bean>
+
+<bean id="infoPrinter" class="spring.printer.MemberInfoPrinter">
+	<property name="memDao" ref="dao"/>
+	<property name="printer" ref="memberPrinter"/>
+</bean>
+
+<!-- <bean id="versionPrinter" class="spring.printer.VersionPrinter">
+	<constructor-arg value="1"/>	
+	<constructor-arg value="2"/> 1.2 버전	
+</bean> -->
+
+
+<bean id="versionPrinter" class="spring.printer.VersionPrinter">
+	<property name="majorVersion" value="1"/>
+	<property name="minorVersion">
+	<value>2</value>
+	</property> <!-- 1.2 버전 -->	
+</bean>
+
+</beans>
