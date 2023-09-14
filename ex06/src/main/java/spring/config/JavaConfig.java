@@ -16,6 +16,9 @@ public class JavaConfig {
 	public Calculator impeCalc() {
 		return new ImpCalculator();
 	}
+	
+
+	
 	@Bean
 	public Calculator recCalc() {
 		return new RecCalculator();

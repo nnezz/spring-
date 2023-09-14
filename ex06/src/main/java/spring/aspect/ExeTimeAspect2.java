@@ -1,11 +1,18 @@
 package spring.aspect;
 
+import java.util.Arrays;
+
+import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
+import org.aspectj.lang.Signature;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
+import org.springframework.core.annotation.Order;
+
 
 @Aspect
+@Order(2)
 public class ExeTimeAspect2 { // 공통 기능 + Aspect 설정
 	// 1. 공통 기능을 적용할 대상
 	@Pointcut("execution(public * spring.calc..*(..))")
@@ -23,7 +30,7 @@ public class ExeTimeAspect2 { // 공통 기능 + Aspect 설정
 		long end = System.nanoTime();
 
 		System.out.println("걸린시간 : " + (end - start));
-
+		
 		return result;
 	}
 }

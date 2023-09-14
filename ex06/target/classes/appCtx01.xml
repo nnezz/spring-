@@ -13,6 +13,7 @@
 
 	<bean id="exeTimeAspect1" class="spring.aspect.ExeTimeAspect1"/>
 
+
 <!-- AOP 설정 -->
 <aop:config>
 	<aop:aspect id="measureAspect" ref="exeTimeAspect1">  <!-- 하나의 공통기능 -->

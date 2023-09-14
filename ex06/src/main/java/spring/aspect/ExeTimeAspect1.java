@@ -1,6 +1,9 @@
 package spring.aspect;
 
+import java.util.Arrays;
+
 import org.aspectj.lang.ProceedingJoinPoint;
+import org.aspectj.lang.Signature;
 
 public class ExeTimeAspect1 {  //POJO 기반 공통기능을 가진 클래스
 	
@@ -17,6 +20,24 @@ public class ExeTimeAspect1 {  //POJO 기반 공통기능을 가진 클래스
 		long end = System.nanoTime();
 		
 		System.out.println("걸린시간 : "+(end-start));
+		
+		System.out.println("--------------------------------");
+		System.out.println("");
+		
+		
+		Signature sig = joinpoint.getSignature();
+		String methodName = sig.getName();
+		System.out.println("핵심기능을 가진 메서드 이름 : " + methodName);
+		
+		
+		
+		String className = joinpoint.getTarget().getClass().getSimpleName();
+		System.out.println("핵심기능을 가진 객체 이름 : " + className);
+		
+		
+		
+		String argList = Arrays.toString(joinpoint.getArgs());
+		System.out.println("핵심기능을 구동하기 위한 매개값 목록 : " + argList);
 		
 		return result;
 		

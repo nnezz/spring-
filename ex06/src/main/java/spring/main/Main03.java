@@ -13,6 +13,8 @@ public class Main03 {
 		new GenericXmlApplicationContext("classpath:appCtx01.xml");
 		
 		Calculator impeCalc = ctx.getBean("impeCalc",Calculator.class);
+		//ImpCalculator impeCalc = ctx.getBean("impeCalc",ImpCalculator.class);
+		
 		long result = impeCalc.factorial(10);
 		
 		System.out.println("계산결과 : "+result);

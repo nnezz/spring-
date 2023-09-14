@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd">
+
+	<!-- 핵심 기능 빈 -->
+	<bean id="impeCalc" class="spring.calc.ImpCalculator"/>	
+	<bean id="recCalc" class="spring.calc.RecCalculator"/>
+	
+	<!-- 공통기능 빈 -->
+	<bean id="exeTimeAspect1" class="spring.aspect.ExeTimeAspect1"/>
+	<bean id="cacheAspect" class="spring.aspect.CacheAspect"/>
+	
+	<!-- aop 설정 -->
+	<aop:config>
+		<aop:aspect id="measureAspect" ref="exeTimeAspect1" order="1">  <!-- 시간측정 공통기능 -->
+			<aop:pointcut
+				expression="execution(public * spring.calc..*(..))"
+				id="factorialMethod" />
+			<aop:around method="measure"
+				pointcut-ref="factorialMethod" />
+		</aop:aspect>
+		<aop:aspect id="calcCache" ref="cacheAspect" order="2"> <!-- 캐시 공통 기능 -->
+			<aop:pointcut expression="execution(public * spring.calc..*(..))" 
+			id="cacheMethod"/>
+			<aop:around method="xxx" pointcut-ref="cacheMethod"/>
+			
+		
+		</aop:aspect>
+	
+	
+	
+	
+	</aop:config>
+	
+	
+	
+	
+	
+	
+	
+	
+</beans>
