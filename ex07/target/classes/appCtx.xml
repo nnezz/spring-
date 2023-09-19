@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd">
+	<!-- 트랜젝션을 동작 시키기 위한 코드 -->
+	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource"/>
+</bean>
+	
+	<tx:annotation-driven transaction-manager="transactionManager"/>
+	
+	<!-- DB 연결을 위해서 연결 객체를 준비 - >커넥션 풀 (DATA SOURCE) -->
+	<bean id="dataSource"
+		class="com.mchange.v2.c3p0.ComboPooledDataSource"
+		destroy-method="close">
+		<property name="driverClass" value="oracle.jdbc.OracleDriver" />
+		<property name="jdbcUrl"
+			value="jdbc:oracle:thin:@localhost:1521:xe" />
+		<property name="user" value="HR" />
+		<property name="password" value="1234" />
+		
+	</bean>
+	
+	<!-- jdbcTemplate 빈 -->
+		<bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+		<constructor-arg ref="dataSource"/>
+</bean>
+	
+	
+	<!-- DAO 빈 -->
+	<bean id="dao" class="spring.dao.MemberDao">
+		<constructor-arg ref="jdbcTemplate" />
+	</bean>
+	
+	<!-- 전체 회원 정보 -->
+	<bean id="printer" class="spring.printer.MemberPrinter"/>
+	
+	<bean id="listPrinter" class="spring.printer.MemberListPrinter">
+	<constructor-arg ref="dao"/>
+	<constructor-arg ref="printer"/>
+	</bean>
+	
+	<!-- 자동 주입 활성화 -->
+	<context:annotation-config/> 
+	<!-- 한명의 회원정보 -->
+	<bean id="infoPrinter" class="spring.printer.MemberInfoPrinter">	
+	</bean>
+	
+	<!-- 회원 가입 기능을 처리하기 위한 빈 -->
+	<bean id="regSvc" class="spring.service.MemberRegisterService">	
+</bean>
+	
+	<!-- 비밀번호 변경을 위한 빈  -->
+	<bean id="changePwdSvc" class="spring.service.ChangePasswordService">
+	</bean>
+
+
+
+
+</beans>
