@@ -8,11 +8,20 @@
 		<servlet-name>appServlet</servlet-name>
 		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
 		<init-param>
+			<param-name>spring.profiles.active</param-name>
+			<param-value>real</param-value>		
+		</init-param>
+		
+		
+		<init-param>
 			<param-name>contextConfigLocation</param-name>
 			<param-value>
 			classpath:spring-mvc.xml
 			classpath:spring-member.xml
 			classpath:spring-controller.xml
+			classpath:spring-ds-nested.xml
+	<!-- 		classpath:spring-ds-dev.xml
+			classpath:spring-ds-real.xml -->
 			</param-value>
 		</init-param>
 		<load-on-startup>1</load-on-startup>

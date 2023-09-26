@@ -17,7 +17,7 @@
 		transaction-manager="transactionManager" />
 
 	<!-- DB 연결을 위해서 연결 객체를 준비 - >커넥션 풀 (DATA SOURCE) -->
-	<bean id="dataSource"
+ 	<bean id="dataSource"
 		class="com.mchange.v2.c3p0.ComboPooledDataSource"
 		destroy-method="close">
 		<property name="driverClass" value="oracle.jdbc.OracleDriver" />
