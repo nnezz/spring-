@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+	<!-- Mapper 설정파일 
+		=>쿼리문 , 매핑 규칙
+		
+	
+	-->
+
+<!-- 매퍼를 찾는 고유값 -->
+<mapper namespace="com.green.mybatis.mapper.member">
+
+	<!--
+	 DML : INSERT , UPDATE , DELETE , SELECT 
+	 
+	 id : 쿼리를 찾기위한 고유값
+	 resultMap : 외부 참조명
+	 resultType : 쿼리 실행 결과를 담을 기본 타입 , 객체 , 별칭
+	 
+	 -->
+	<resultMap type="memberVO" id="memVo">
+		<result column="id" property="id"/>
+		<result column="email" property="email"/>
+		<result column="name" property="name"/>
+		<result column="password" property="password"/>
+		<result column="regdate" property="regdate"/>
+	</resultMap>
+	
+	<resultMap type="java.util.HashMap" id="memberMap">
+		<result column="id" property="id"/>
+		<result column="email" property="email"/>
+		<result column="name" property="name"/>
+		<result column="password" property="password"/>
+		<result column="regdate" property="regdate"/>
+	</resultMap>
+	
+	<!-- <select id="selectAll" resultType="com.green.vo.MemberVO"> 패키지 ,객체 -->
+	<!-- <select id="selectAll" resultType="memberVO"> 별칭  -->  
+	<select id="selectAll" resultMap="memVo"> <!-- 외부 참조값 -->
+	<!-- select 에서 resultMap 으로 반환하는 경우 List 로 반환 -->
+		select * from members
+	</select>	
+	
+	<!-- 결과를 객체가 아닌 맵으로도 데이터를 꺼내 올수 있다. -->
+	<select id="selectAllToMap" resultMap="memberMap">
+		select * from members 
+	
+	</select>
+</mapper>

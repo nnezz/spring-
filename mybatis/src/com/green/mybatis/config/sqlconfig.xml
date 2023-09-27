@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<!-- 마이바티스 설정 파일 : !DOCTYPE configuration~~~ -> 데이터베이스 연결 , 쿼리가 작성된 메퍼 파일을 
+	읽어온ㄷ. -->
+	
+
+
+
+<!-- 데이터베이스 연결 정보 -->
+<configuration>
+
+	<typeAliases>
+	
+		<typeAlias type="com.green.vo.MemberVO" alias="memberVO" />
+	</typeAliases>
+
+
+
+	<environments default="development">
+		<environment id="development">
+			<transactionManager type="JDBC" />
+			<dataSource type="POOLED">
+				<property name="driver" value="oracle.jdbc.OracleDriver" />
+				<property name="url"
+					value="jdbc:oracle:thin:@localhost:1521:xe" />
+				<property name="username" value="HR" />
+				<property name="password" value="1234" />
+			</dataSource>
+		</environment>
+	</environments>
+
+
+	<!-- 쿼리 정보가 담긴 매퍼 파일을 읽어오기 -->
+	<mappers>
+		<mapper resource="com/green/mybatis/mapper/memberMapper.xml" />
+	</mappers>
+</configuration>

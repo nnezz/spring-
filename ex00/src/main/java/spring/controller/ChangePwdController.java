@@ -21,35 +21,35 @@ import validator.ChangePwdCommandValidator;
 public class ChangePwdController {
 	@Autowired
 	private ChangePasswordService changePasswordService;
-	
+
 	@GetMapping
 	public String form(Model model) {
-		model.addAttribute("ChangePwdCommand",new ChangePwdCommand());
-		
+		model.addAttribute("ChangePwdCommand", new ChangePwdCommand());
+
 		return "edit/changePwdForm";
 	}
-		@PostMapping
-		public String submited(ChangePwdCommand changePwdCommand,Errors error,HttpSession session) {
-		//1. 검증
+
+	@PostMapping
+	public String submited(ChangePwdCommand changePwdCommand, Errors error, HttpSession session) {
+		// 1. 검증
 		new ChangePwdCommandValidator().validate(changePwdCommand, error);
-		
-		if(error.hasErrors()) {
+
+		if (error.hasErrors()) {
 			return "edit/changePwdForm";
 		}
-		
-		AuthInfo authInfo = (AuthInfo)session.getAttribute("authInfo");
-		
+
+		AuthInfo authInfo = (AuthInfo) session.getAttribute("authInfo");
+
 		try {
-			
-			changePasswordService.changePassword(authInfo.getEmail(),
-					changePwdCommand.getCurrentPassword(),
+
+			changePasswordService.changePassword(authInfo.getEmail(), changePwdCommand.getCurrentPassword(),
 					changePwdCommand.getNewPassword());
 			return "edit/changePwd";
 		} catch (IdPasswordNotMatchingException e) {
-			// 
+			//
 			error.rejectValue("currentPassword", "notMatching");
 			return "edit/changePwdForm";
 		}
 	}
-	
+
 }

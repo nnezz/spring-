@@ -64,7 +64,7 @@ public class RegisterRequestValidator implements Validator{
 		 */
 		
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "name", "required");
-		// name이라는 필드가 비어있거나 공백문자가있다면 에ㅓ의 name속성에 required값 전달
+		// name이라는 필드가 비어있거나 공백문자가있다면 name속성에 required값 전달
 		
 		ValidationUtils.rejectIfEmpty(errors, "password", "required");
 		ValidationUtils.rejectIfEmpty(errors, "confirmPassword", "required");
