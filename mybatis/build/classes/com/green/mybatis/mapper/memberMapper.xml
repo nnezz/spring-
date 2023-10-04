@@ -46,7 +46,41 @@
 	
 	<!-- 결과를 객체가 아닌 맵으로도 데이터를 꺼내 올수 있다. -->
 	<select id="selectAllToMap" resultMap="memberMap">
-		select * from members 
-	
+		select * from members 	
 	</select>
+	
+	<!-- 기본 타입 데이터 반환 int -->
+	<select id="selectCnt" resultType="int">
+		select count(*) from members
+	</select>
+	
+	<!-- 쿼리 완성을 위한 매개값 설정 -->							<!-- 객체 , 기본타입 -->
+	<select id="selectByEmail" resultType="memberVO" parameterType="String">
+		select * from members
+		where email=#{email}
+	</select>
+	
+	<!-- 데이터 삽입 : insert -->
+	<insert id="insertMember" parameterType="memberVO">
+		insert into members 
+		values(members_seq.nextval ,#{email} , #{password} , #{name} , sysdate )
+	</insert>	
+	<!-- 데이터 수정 : update -->
+	<update id="updateMember" parameterType="memberVO">
+		update members
+		set name=#{name},password=#{password}
+		where email = #{email}
+	</update>
+	<!-- 데이터 삭제 : delete -->
+	<delete id="deleteMember" parameterType="String">
+		delete from members
+		where email=#{email}
+	</delete>
+	
+	
+	
+	
+	
+	
+	
 </mapper>
